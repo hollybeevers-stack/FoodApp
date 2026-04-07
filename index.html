@@ -529,6 +529,12 @@
       document.getElementById('foodLabel').textContent = food.label;
       document.getElementById('counter').textContent = `${current + 1} / ${foods.length}`;
       document.getElementById('progressFill').style.width = `${(current / foods.length) * 100}%`;
+
+      // Preload the next image so it's ready before the user gets there
+      if (current + 1 < foods.length) {
+        const preload = new Image();
+        preload.src = foods[current + 1].file;
+      }
     }
 
     function rate(isYes) {
