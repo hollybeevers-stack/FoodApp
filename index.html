@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Food Rater</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yes: #e8f5e0;
+      --yes-dark: #4caf50;
+      --no: #fdecea;
+      --no-dark: #e53935;
+      --bg: #1a1a1a;
+      --card: #242424;
+      --text: #f0ece4;
+      --muted: #888;
+      --accent: #f5c842;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    /* INTRO SCREEN */
+    #intro {
+      text-align: center;
+      max-width: 420px;
+    }
+
+    #intro h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 12vw, 5rem);
+      letter-spacing: 2px;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    #intro p {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .btn-start {
+      background: var(--accent);
+      color: #1a1a1a;
+      border: none;
+      padding: 16px 48px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 2px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: transform 0.1s, opacity 0.1s;
+    }
+
+    .btn-start:hover { opacity: 0.9; transform: scale(1.02); }
+    .btn-start:active { transform: scale(0.98); }
+
+    /* RATING SCREEN */
+    #rater {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .progress-bar-wrap {
+      width: 100%;
+      background: #333;
+      border-radius: 99px;
+      height: 6px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 99px;
+      transition: width 0.3s ease;
+    }
+
+    .counter {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+      letter-spacing: 1px;
+    }
+
+    .card {
+      width: 100%;
+      background: var(--card);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+      transition: transform 0.15s ease;
+    }
+
+    .card img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-label {
+      padding: 16px 20px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 1px;
+      color: var(--text);
+      text-align: center;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 16px;
+      margin-top: 24px;
+      width: 100%;
+    }
+
+    .btn-no, .btn-yes {
+      flex: 1;
+      padding: 18px;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: transform 0.1s, opacity 0.1s;
+    }
+
+    .btn-no {
+      background: var(--no);
+      color: var(--no-dark);
+    }
+
+    .btn-yes {
+      background: var(--yes);
+      color: var(--yes-dark);
+    }
+
+    .btn-no:hover, .btn-yes:hover { opacity: 0.9; transform: scale(1.02); }
+    .btn-no:active, .btn-yes:active { transform: scale(0.97); }
+
+    /* RESULTS SCREEN */
+    #results {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+    }
+
+    #results h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 10vw, 4rem);
+      color: var(--accent);
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    #results p.sub {
+      color: var(--muted);
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+    }
+
+    .results-list {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 20px 24px;
+      width: 100%;
+      text-align: left;
+      margin-bottom: 20px;
+      max-height: 340px;
+      overflow-y: auto;
+    }
+
+    .results-list li {
+      list-style: none;
+      padding: 8px 0;
+      border-bottom: 1px solid #333;
+      font-size: 0.95rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .results-list li:last-child { border-bottom: none; }
+
+    .results-list li::before {
+      content: '✓';
+      color: var(--yes-dark);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .empty-state {
+      color: var(--muted);
+      font-style: italic;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    .btn-copy {
+      background: var(--accent);
+      color: #1a1a1a;
+      border: none;
+      padding: 14px 36px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      cursor: pointer;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      transition: transform 0.1s, opacity 0.1s;
+      width: 100%;
+    }
+
+    .btn-copy:hover { opacity: 0.9; }
+    .btn-copy:active { transform: scale(0.98); }
+
+    .btn-restart {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid #444;
+      padding: 12px 36px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border-radius: 8px;
+      width: 100%;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-restart:hover { border-color: var(--text); color: var(--text); }
+
+    .copied-msg {
+      font-size: 0.85rem;
+      color: var(--yes-dark);
+      margin-top: 8px;
+      min-height: 20px;
+    }
+
+    @keyframes flashYes {
+      0% { background: var(--card); }
+      40% { background: #2d4a2a; }
+      100% { background: var(--card); }
+    }
+
+    @keyframes flashNo {
+      0% { background: var(--card); }
+      40% { background: #4a2a2a; }
+      100% { background: var(--card); }
+    }
+
+    .flash-yes { animation: flashYes 0.35s ease; }
+    .flash-no  { animation: flashNo 0.35s ease; }
+  </style>
+</head>
+<body>
+
+  <!-- INTRO -->
+  <div id="intro">
+    <h1>Would You Eat This?</h1>
+    <p>Rate 40 foods — yes or no. At the end you'll get your list to compare with your partner.</p>
+    <button class="btn-start" onclick="startRating()">Let's Go</button>
+  </div>
+
+  <!-- RATER -->
+  <div id="rater">
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+    <div class="counter" id="counter">1 / 40</div>
+    <div class="card" id="card">
+      <img id="foodImg" src="" alt="" />
+      <div class="card-label" id="foodLabel"></div>
+    </div>
+    <div class="buttons">
+      <button class="btn-no" onclick="rate(false)">✕ No</button>
+      <button class="btn-yes" onclick="rate(true)">✓ Yes</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results">
+    <h2>Your Yeses</h2>
+    <p class="sub" id="resultsCount"></p>
+    <ul class="results-list" id="resultsList"></ul>
+    <button class="btn-copy" onclick="copyList()">Copy List</button>
+    <div class="copied-msg" id="copiedMsg"></div>
+    <button class="btn-restart" onclick="restart()">Start Over</button>
+  </div>
+
+  <script>
+    const foods = [
+      { file: "1 - Fried Chicken.png",      label: "Fried Chicken" },
+      { file: "2 - Beef Burger.png",         label: "Beef Burger" },
+      { file: "3 - Aussie Burger.png",       label: "Aussie Burger" },
+      { file: "4 - Chicken Burger.png",      label: "Chicken Burger" },
+      { file: "5 - Schnitzel.png",           label: "Schnitzel" },
+      { file: "6 - Parmie.png",              label: "Parmie" },
+      { file: "7 - Steak.png",               label: "Steak" },
+      { file: "8 - Chips.png",               label: "Chips" },
+      { file: "9 - Wedges.png",              label: "Wedges" },
+      { file: "10 - Wings.png",              label: "Wings" },
+      { file: "11 - Meatlovers.png",         label: "Meatlovers Pizza" },
+      { file: "12 - Woodfired Pizza.png",    label: "Woodfired Pizza" },
+      { file: "13 - Curry.png",              label: "Curry" },
+      { file: "14 - Souvlaki.png",           label: "Souvlaki" },
+      { file: "15 - Kebab.png",              label: "Kebab" },
+      { file: "16 - tacos.png",              label: "Tacos" },
+      { file: "17 - Sweet Potato Chips.png", label: "Sweet Potato Chips" },
+      { file: "18 - Pad See Ew.png",         label: "Pad See Ew" },
+      { file: "19 - Pad Thai.png",           label: "Pad Thai" },
+      { file: "20 - Pho.png",                label: "Pho" },
+      { file: "21 - Nachos.png",             label: "Nachos" },
+      { file: "22 - Banh Mi.png",            label: "Banh Mi" },
+      { file: "23 - Club Sandwhich.png",     label: "Club Sandwich" },
+      { file: "24 - Vietnamese.png",         label: "Vietnamese" },
+      { file: "25 - Creamy Pasta.png",       label: "Creamy Pasta" },
+      { file: "26 - Tomato Pasta.png",       label: "Tomato Pasta" },
+      { file: "27 - Sushi.png",              label: "Sushi" },
+      { file: "28 - Sushi Taco.png",         label: "Sushi Taco" },
+      { file: "29 - Sausage roll.png",       label: "Sausage Roll" },
+      { file: "30 - Meat Pie.png",           label: "Meat Pie" },
+      { file: "31 - B&E Roll.png",           label: "B&E Roll" },
+      { file: "32 - Lasagne.png",            label: "Lasagne" },
+      { file: "33 - Asian Greens.png",       label: "Asian Greens" },
+      { file: "34 - Fish and Chips.png",     label: "Fish and Chips" },
+      { file: "35 - Charcoal Chicken.png",   label: "Charcoal Chicken" },
+      { file: "36 - Shish Meat.png",         label: "Shish Meat" },
+      { file: "37 - Mongolian Lamb.png",     label: "Mongolian Lamb" },
+      { file: "38 - Honey Chicken.png",      label: "Honey Chicken" },
+      { file: "39 - Burrito.png",            label: "Burrito" },
+      { file: "40 - Chicken Tenders.png",    label: "Chicken Tenders" },
+    ];
+
+    let current = 0;
+    let yeses = [];
+
+    function startRating() {
+      document.getElementById('intro').style.display = 'none';
+      document.getElementById('rater').style.display = 'flex';
+      loadCard();
+    }
+
+    function loadCard() {
+      const food = foods[current];
+      document.getElementById('foodImg').src = food.file;
+      document.getElementById('foodImg').alt = food.label;
+      document.getElementById('foodLabel').textContent = food.label;
+      document.getElementById('counter').textContent = `${current + 1} / ${foods.length}`;
+      document.getElementById('progressFill').style.width = `${(current / foods.length) * 100}%`;
+    }
+
+    function rate(isYes) {
+      if (isYes) yeses.push(foods[current].label);
+
+      const card = document.getElementById('card');
+      card.classList.remove('flash-yes', 'flash-no');
+      void card.offsetWidth;
+      card.classList.add(isYes ? 'flash-yes' : 'flash-no');
+
+      current++;
+
+      if (current >= foods.length) {
+        setTimeout(showResults, 300);
+      } else {
+        setTimeout(loadCard, 150);
+      }
+    }
+
+    function showResults() {
+      document.getElementById('rater').style.display = 'none';
+      const results = document.getElementById('results');
+      results.style.display = 'flex';
+
+      const list = document.getElementById('resultsList');
+      list.innerHTML = '';
+
+      if (yeses.length === 0) {
+        list.innerHTML = '<p class="empty-state">Nothing selected — tough crowd!</p>';
+      } else {
+        yeses.forEach(name => {
+          const li = document.createElement('li');
+          li.textContent = name;
+          list.appendChild(li);
+        });
+      }
+
+      document.getElementById('resultsCount').textContent =
+        `${yeses.length} of ${foods.length} foods made the cut`;
+    }
+
+    function copyList() {
+      const text = yeses.length > 0
+        ? yeses.join('\n')
+        : '(no selections)';
+
+      navigator.clipboard.writeText(text).then(() => {
+        const msg = document.getElementById('copiedMsg');
+        msg.textContent = 'Copied to clipboard!';
+        setTimeout(() => msg.textContent = '', 2500);
+      });
+    }
+
+    function restart() {
+      current = 0;
+      yeses = [];
+      document.getElementById('results').style.display = 'none';
+      document.getElementById('intro').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
