@@ -34,13 +34,18 @@
       padding: 20px;
     }
 
-    /* ── INTRO ── */
-    #intro {
+    /* ── SHARED ── */
+    .screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 480px;
       text-align: center;
-      max-width: 440px;
     }
+    .screen.active { display: flex; }
 
-    #intro h1 {
+    h1.title {
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(2.8rem, 11vw, 4.8rem);
       letter-spacing: 2px;
@@ -49,7 +54,15 @@
       margin-bottom: 14px;
     }
 
-    #intro p {
+    h2.section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 8vw, 3rem);
+      color: var(--accent);
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    p.subtitle {
       color: var(--muted);
       font-size: 1rem;
       margin-bottom: 36px;
@@ -57,30 +70,95 @@
       font-style: italic;
     }
 
-    .btn-start {
+    p.hint {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    p.sub {
+      color: var(--muted);
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      border: none;
+      cursor: pointer;
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 2px;
+      border-radius: 8px;
+      transition: transform 0.1s, opacity 0.1s;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .btn:hover  { opacity: 0.9; transform: scale(1.01); }
+    .btn:active { transform: scale(0.98); }
+
+    .btn-accent {
       background: var(--accent);
       color: #101357;
-      border: none;
-      padding: 16px 48px;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      letter-spacing: 2px;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: transform 0.1s, opacity 0.1s;
+      padding: 16px;
+      font-size: 1.3rem;
     }
-    .btn-start:hover  { opacity: 0.9; transform: scale(1.02); }
-    .btn-start:active { transform: scale(0.98); }
+
+    .btn-teal {
+      background: var(--teal);
+      color: #fff;
+      padding: 14px;
+      font-size: 1.2rem;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border) !important;
+      padding: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+    .btn-ghost:hover { border-color: var(--text) !important; color: var(--text); }
+
+    .btn-fate {
+      background: var(--no);
+      color: var(--no-dark);
+      padding: 16px;
+      font-size: 1.3rem;
+    }
+
+    /* ── GROUP SIZE ── */
+    #groupScreen p.subtitle { margin-bottom: 24px; }
+
+    .group-options {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 0;
+      width: 100%;
+    }
+
+    .group-btn {
+      flex: 1;
+      padding: 20px 0;
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, transform 0.1s;
+    }
+    .group-btn:hover {
+      border-color: var(--accent);
+      background: #222a80;
+      transform: scale(1.04);
+    }
 
     /* ── RATER ── */
-    #rater {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      max-width: 480px;
-    }
-
     .progress-bar-wrap {
       width: 100%;
       background: var(--card);
@@ -128,7 +206,7 @@
       text-align: center;
     }
 
-    .buttons {
+    .vote-buttons {
       display: flex;
       gap: 16px;
       margin-top: 24px;
@@ -146,44 +224,20 @@
       cursor: pointer;
       transition: transform 0.1s, opacity 0.1s;
     }
-
-    .btn-no  { background: var(--no);        color: var(--no-dark); }
-    .btn-yes { background: var(--yes-light);  color: var(--yes); }
+    .btn-no  { background: var(--no);       color: var(--no-dark); }
+    .btn-yes { background: var(--yes-light); color: var(--yes); }
     .btn-no:hover,  .btn-yes:hover  { opacity: 0.9; transform: scale(1.02); }
     .btn-no:active, .btn-yes:active { transform: scale(0.97); }
 
     /* ── RESULTS ── */
-    #results {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      max-width: 480px;
-      text-align: center;
-    }
-
-    #results h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.2rem, 9vw, 3.5rem);
-      color: var(--accent);
-      letter-spacing: 2px;
-      margin-bottom: 6px;
-    }
-
-    #results p.sub {
-      color: var(--muted);
-      margin-bottom: 20px;
-      font-size: 0.9rem;
-    }
-
     .results-list {
       background: var(--card);
       border-radius: 12px;
-      padding: 20px 24px;
+      padding: 16px 20px;
       width: 100%;
       text-align: left;
       margin-bottom: 16px;
-      max-height: 260px;
+      max-height: 240px;
       overflow-y: auto;
     }
 
@@ -208,58 +262,32 @@
     .empty-state {
       color: var(--muted);
       font-style: italic;
-      padding: 16px 0;
+      padding: 12px 0;
       text-align: center;
       width: 100%;
     }
-
-    .btn-copy {
-      background: var(--accent);
-      color: #101357;
-      border: none;
-      padding: 14px 36px;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.2rem;
-      letter-spacing: 2px;
-      cursor: pointer;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      transition: transform 0.1s, opacity 0.1s;
-      width: 100%;
-    }
-    .btn-copy:hover  { opacity: 0.9; }
-    .btn-copy:active { transform: scale(0.98); }
 
     .copied-msg {
       font-size: 0.85rem;
       color: var(--teal);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       min-height: 20px;
     }
 
-    /* ── OVERLAP SECTION ── */
-    .overlap-section {
+    /* ── COMPARE ── */
+    .partner-block {
       width: 100%;
-      border-top: 1px solid var(--border);
-      padding-top: 24px;
       margin-bottom: 16px;
+      text-align: left;
     }
 
-    .overlap-section h3 {
+    .partner-block label {
+      display: block;
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem;
+      font-size: 1.1rem;
       letter-spacing: 1px;
       color: var(--accent);
       margin-bottom: 6px;
-      text-align: center;
-    }
-
-    .overlap-section p.hint {
-      color: var(--muted);
-      font-size: 0.85rem;
-      margin-bottom: 12px;
-      text-align: center;
-      line-height: 1.5;
     }
 
     textarea {
@@ -270,70 +298,23 @@
       color: var(--text);
       font-family: 'DM Sans', sans-serif;
       font-size: 0.9rem;
-      padding: 14px 16px;
+      padding: 12px 14px;
       resize: vertical;
-      min-height: 120px;
+      min-height: 100px;
       outline: none;
       transition: border-color 0.2s;
-      margin-bottom: 12px;
     }
     textarea:focus { border-color: var(--teal); }
     textarea::placeholder { color: var(--muted); }
 
-    .btn-compare {
-      background: var(--teal);
-      color: #fff;
+    .divider {
+      width: 100%;
       border: none;
-      padding: 14px 36px;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.2rem;
-      letter-spacing: 2px;
-      cursor: pointer;
-      border-radius: 8px;
-      width: 100%;
-      margin-bottom: 16px;
-      transition: opacity 0.15s, transform 0.1s;
-    }
-    .btn-compare:hover  { opacity: 0.9; }
-    .btn-compare:active { transform: scale(0.98); }
-
-    /* overlap results */
-    .overlap-results {
-      width: 100%;
-      display: none;
+      border-top: 1px solid var(--border);
+      margin: 20px 0;
     }
 
-    .overlap-results h4 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.3rem;
-      letter-spacing: 1px;
-      color: var(--no);
-      margin-bottom: 10px;
-      text-align: center;
-    }
-
-    .overlap-list {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 16px 20px;
-      width: 100%;
-      text-align: left;
-      max-height: 260px;
-      overflow-y: auto;
-      margin-bottom: 8px;
-    }
-
-    .overlap-list li {
-      list-style: none;
-      padding: 7px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.9rem;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .overlap-list li:last-child { border-bottom: none; }
+    /* ── OVERLAP RESULTS ── */
     .overlap-list li::before {
       content: '♥';
       color: var(--no);
@@ -347,23 +328,48 @@
       margin-bottom: 16px;
     }
 
-    /* ── RESTART ── */
-    .btn-restart {
-      background: transparent;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      padding: 12px 36px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      cursor: pointer;
-      border-radius: 8px;
-      width: 100%;
-      margin-top: 8px;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .btn-restart:hover { border-color: var(--text); color: var(--text); }
+    /* ── WHEEL ── */
+    #wheelScreen { padding-bottom: 20px; }
 
-    /* ── FLASH ANIMATIONS ── */
+    .wheel-wrap {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 0 auto 24px;
+    }
+
+    #wheelCanvas {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    }
+
+    .wheel-pointer {
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 28px solid var(--accent);
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+      z-index: 10;
+    }
+
+    #wheelResult {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: var(--accent);
+      letter-spacing: 1px;
+      min-height: 40px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    /* ── FLASH ── */
     @keyframes flashYes {
       0%   { background: var(--card); }
       40%  { background: #0d4a35; }
@@ -381,14 +387,26 @@
 <body>
 
   <!-- INTRO -->
-  <div id="intro">
-    <h1>Do you want to get food?</h1>
-    <p>Saving relationships one yes or no at a time.</p>
-    <button class="btn-start" onclick="startRating()">Let's Go</button>
+  <div id="introScreen" class="screen active">
+    <h1 class="title">Do you want to get food?</h1>
+    <p class="subtitle">Saving relationships one yes or no at a time.</p>
+    <button class="btn btn-accent" onclick="goToGroup()">Let's Go</button>
+  </div>
+
+  <!-- GROUP SIZE -->
+  <div id="groupScreen" class="screen">
+    <h2 class="section-title">How many people are in your group?</h2>
+    <p class="subtitle">Each person rates separately, then you'll compare at the end.</p>
+    <div class="group-options">
+      <button class="group-btn" onclick="setGroup(2)">2</button>
+      <button class="group-btn" onclick="setGroup(3)">3</button>
+      <button class="group-btn" onclick="setGroup(4)">4</button>
+      <button class="group-btn" onclick="setGroup(5)">5</button>
+    </div>
   </div>
 
   <!-- RATER -->
-  <div id="rater">
+  <div id="raterScreen" class="screen">
     <div class="progress-bar-wrap">
       <div class="progress-bar-fill" id="progressFill"></div>
     </div>
@@ -397,36 +415,49 @@
       <img id="foodImg" src="" alt="" />
       <div class="card-label" id="foodLabel"></div>
     </div>
-    <div class="buttons">
+    <div class="vote-buttons">
       <button class="btn-no"  onclick="rate(false)">✕ No</button>
       <button class="btn-yes" onclick="rate(true)">✓ Yes</button>
     </div>
   </div>
 
-  <!-- RESULTS -->
-  <div id="results">
-    <h2>Your Yeses</h2>
+  <!-- MY RESULTS -->
+  <div id="resultsScreen" class="screen">
+    <h2 class="section-title">Your Yeses</h2>
     <p class="sub" id="resultsCount"></p>
     <ul class="results-list" id="resultsList"></ul>
-
-    <button class="btn-copy" onclick="copyList()">Copy My List</button>
+    <button class="btn btn-accent" onclick="copyList()">Copy My List</button>
     <div class="copied-msg" id="copiedMsg"></div>
+    <button class="btn btn-teal" onclick="goToCompare()">Compare With Group →</button>
+  </div>
 
-    <!-- OVERLAP -->
-    <div class="overlap-section">
-      <h3>Find Your Overlap</h3>
-      <p class="hint">Paste your partner's list below to see what you both said yes to.</p>
-      <textarea id="partnerInput" placeholder="Paste their list here..."></textarea>
-      <button class="btn-compare" onclick="compareList()">Show Overlap</button>
-
-      <div class="overlap-results" id="overlapResults">
-        <h4>You Both Want...</h4>
-        <ul class="overlap-list" id="overlapList"></ul>
-        <p class="overlap-count" id="overlapCount"></p>
-      </div>
+  <!-- COMPARE -->
+  <div id="compareScreen" class="screen">
+    <h2 class="section-title">Paste Everyone's Lists</h2>
+    <p class="hint">Each person copies their list and pastes it below. Then hit Find Overlap.</p>
+    <div id="partnerInputs" style="width:100%"></div>
+    <button class="btn btn-teal" onclick="compareAll()">Find Overlap</button>
+    <hr class="divider" id="overlapDivider" style="display:none"/>
+    <div id="overlapResults" style="width:100%; display:none;">
+      <h2 class="section-title">You All Want...</h2>
+      <ul class="results-list overlap-list" id="overlapList"></ul>
+      <p class="overlap-count" id="overlapCount"></p>
+      <button class="btn btn-fate" id="fateBtn" onclick="goToWheel()" style="display:none">🎡 Let Fate Decide</button>
     </div>
+    <button class="btn btn-ghost" onclick="restart()">Start Over</button>
+  </div>
 
-    <button class="btn-restart" onclick="restart()">Start Over</button>
+  <!-- WHEEL -->
+  <div id="wheelScreen" class="screen">
+    <h2 class="section-title">Let Fate Decide</h2>
+    <p class="hint" id="wheelHint"></p>
+    <div class="wheel-wrap">
+      <div class="wheel-pointer"></div>
+      <canvas id="wheelCanvas" width="300" height="300"></canvas>
+    </div>
+    <div id="wheelResult"></div>
+    <button class="btn btn-accent" onclick="spinWheel()">Spin!</button>
+    <button class="btn btn-ghost" onclick="goToCompare()">← Back</button>
   </div>
 
   <script>
@@ -434,7 +465,7 @@
       { file: "1 - Fried Chicken.png",       label: "Fried Chicken" },
       { file: "2 - Beef Burger.png",          label: "Beef Burger" },
       { file: "3 - Aussie Burger.png",        label: "Aussie Burger" },
-      { file: "4 - Chicken Burger.png",        label: "Chicken Burger" },
+      { file: "4 - Chicken Burger.png",       label: "Chicken Burger" },
       { file: "5 - Schnitzel.png",            label: "Schnitzel" },
       { file: "6 - Parmie.png",               label: "Parmie" },
       { file: "7 - Steak.png",                label: "Steak" },
@@ -513,15 +544,34 @@
       { file: "80 - GB.png",                  label: "GB" },
     ];
 
+    // ── State ──
+    let groupSize = 2;
     let current = 0;
     let yeses = [];
+    let overlapItems = [];
 
-    function startRating() {
-      document.getElementById('intro').style.display = 'none';
-      document.getElementById('rater').style.display = 'flex';
+    // ── Wheel state ──
+    let wheelAngle = 0;
+    let spinning = false;
+
+    // ── Navigation ──
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function goToGroup() { showScreen('groupScreen'); }
+
+    function setGroup(n) {
+      groupSize = n;
+      current = 0;
+      yeses = [];
+      showScreen('raterScreen');
       loadCard();
     }
 
+    // ── Rating ──
     function loadCard() {
       const food = foods[current];
       document.getElementById('foodImg').src = food.file;
@@ -529,8 +579,6 @@
       document.getElementById('foodLabel').textContent = food.label;
       document.getElementById('counter').textContent = `${current + 1} / ${foods.length}`;
       document.getElementById('progressFill').style.width = `${(current / foods.length) * 100}%`;
-
-      // Preload the next image so it's ready before the user gets there
       if (current + 1 < foods.length) {
         const preload = new Image();
         preload.src = foods[current + 1].file;
@@ -539,12 +587,10 @@
 
     function rate(isYes) {
       if (isYes) yeses.push(foods[current].label);
-
       const card = document.getElementById('card');
       card.classList.remove('flash-yes', 'flash-no');
       void card.offsetWidth;
       card.classList.add(isYes ? 'flash-yes' : 'flash-no');
-
       current++;
       if (current >= foods.length) {
         setTimeout(showResults, 300);
@@ -553,13 +599,11 @@
       }
     }
 
+    // ── My Results ──
     function showResults() {
-      document.getElementById('rater').style.display = 'none';
-      document.getElementById('results').style.display = 'flex';
-
+      showScreen('resultsScreen');
       const list = document.getElementById('resultsList');
       list.innerHTML = '';
-
       if (yeses.length === 0) {
         list.innerHTML = '<li class="empty-state">Nothing selected — tough crowd!</li>';
       } else {
@@ -569,7 +613,6 @@
           list.appendChild(li);
         });
       }
-
       document.getElementById('resultsCount').textContent =
         `${yeses.length} of ${foods.length} foods made the cut`;
     }
@@ -583,50 +626,198 @@
       });
     }
 
-    function compareList() {
-      const raw = document.getElementById('partnerInput').value;
+    // ── Compare ──
+    function goToCompare() {
+      // Build paste boxes — groupSize boxes labelled Person 1, 2...
+      // Person 1 is pre-filled with this user's own list
+      const container = document.getElementById('partnerInputs');
+      container.innerHTML = '';
 
-      // Parse partner's list — split by newlines, strip bullets/checkmarks/whitespace
-      const partnerItems = raw
+      for (let i = 1; i <= groupSize; i++) {
+        const block = document.createElement('div');
+        block.className = 'partner-block';
+
+        const label = document.createElement('label');
+        label.textContent = `Person ${i}${i === 1 ? ' (You)' : ''}`;
+
+        const ta = document.createElement('textarea');
+        ta.id = `person${i}`;
+        ta.placeholder = i === 1 ? 'Your list is pre-filled' : `Paste Person ${i}'s list here...`;
+        if (i === 1) ta.value = yeses.join('\n');
+
+        block.appendChild(label);
+        block.appendChild(ta);
+        container.appendChild(block);
+      }
+
+      // Reset overlap area
+      document.getElementById('overlapResults').style.display = 'none';
+      document.getElementById('overlapDivider').style.display = 'none';
+
+      showScreen('compareScreen');
+    }
+
+    function parseList(text) {
+      return text
         .split('\n')
-        .map(line => line.replace(/^[\s✓•\-\*]+/, '').trim())
+        .map(line => line.replace(/^[\s✓•\-\*♥]+/, '').trim())
         .filter(line => line.length > 0)
         .map(line => line.toLowerCase());
+    }
 
-      // Find overlap (case-insensitive)
-      const overlap = yeses.filter(item =>
-        partnerItems.includes(item.toLowerCase())
+    function compareAll() {
+      // Get all lists
+      const lists = [];
+      for (let i = 1; i <= groupSize; i++) {
+        const ta = document.getElementById(`person${i}`);
+        lists.push(parseList(ta ? ta.value : ''));
+      }
+
+      // Find items that appear in ALL lists
+      const myList = lists[0];
+      overlapItems = myList.filter(item =>
+        lists.every(list => list.includes(item))
       );
 
-      const overlapResults = document.getElementById('overlapResults');
+      // Map back to original capitalised labels
+      const labelMap = {};
+      foods.forEach(f => { labelMap[f.label.toLowerCase()] = f.label; });
+      const overlapLabels = overlapItems.map(item => labelMap[item] || item);
+
+      // Render
       const overlapList = document.getElementById('overlapList');
-      const overlapCount = document.getElementById('overlapCount');
-
       overlapList.innerHTML = '';
-      overlapResults.style.display = 'block';
+      document.getElementById('overlapDivider').style.display = 'block';
+      document.getElementById('overlapResults').style.display = 'block';
 
-      if (overlap.length === 0) {
+      if (overlapLabels.length === 0) {
         overlapList.innerHTML = '<li class="empty-state">No overlap found — keep negotiating!</li>';
-        overlapCount.textContent = '';
+        document.getElementById('overlapCount').textContent = '';
+        document.getElementById('fateBtn').style.display = 'none';
       } else {
-        overlap.forEach(name => {
+        overlapLabels.forEach(name => {
           const li = document.createElement('li');
           li.textContent = name;
           overlapList.appendChild(li);
         });
-        overlapCount.textContent = `${overlap.length} food${overlap.length !== 1 ? 's' : ''} in common`;
+        document.getElementById('overlapCount').textContent =
+          `${overlapLabels.length} food${overlapLabels.length !== 1 ? 's' : ''} everyone agreed on`;
+        document.getElementById('fateBtn').style.display = 'block';
+
+        // Store labels for wheel
+        overlapItems = overlapLabels;
       }
 
-      overlapResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById('overlapResults').scrollIntoView({ behavior: 'smooth' });
     }
 
+    // ── Wheel ──
+    const WHEEL_COLORS = ['#fbaf08','#fea49f','#00a0a0','#007f4f','#1a1f6e','#e0f2eb','#c0302a','#8a90c8'];
+
+    function goToWheel() {
+      document.getElementById('wheelHint').textContent =
+        `${overlapItems.length} food${overlapItems.length !== 1 ? 's' : ''} in the mix — spin to decide!`;
+      wheelAngle = 0;
+      drawWheel(0);
+      document.getElementById('wheelResult').textContent = '';
+      showScreen('wheelScreen');
+    }
+
+    function drawWheel(angle) {
+      const canvas = document.getElementById('wheelCanvas');
+      const ctx = canvas.getContext('2d');
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+      const r = cx - 4;
+      const n = overlapItems.length;
+      const sliceAngle = (2 * Math.PI) / n;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      overlapItems.forEach((item, i) => {
+        const start = angle + i * sliceAngle;
+        const end = start + sliceAngle;
+
+        // Slice
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, r, start, end);
+        ctx.closePath();
+        ctx.fillStyle = WHEEL_COLORS[i % WHEEL_COLORS.length];
+        ctx.fill();
+        ctx.strokeStyle = '#101357';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Label
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(start + sliceAngle / 2);
+        ctx.textAlign = 'right';
+        ctx.fillStyle = '#101357';
+        ctx.font = `bold ${n > 6 ? 10 : 12}px DM Sans`;
+
+        // Truncate long labels
+        let label = item;
+        if (label.length > 14) label = label.substring(0, 13) + '…';
+        ctx.fillText(label, r - 10, 4);
+        ctx.restore();
+      });
+
+      // Centre circle
+      ctx.beginPath();
+      ctx.arc(cx, cy, 18, 0, 2 * Math.PI);
+      ctx.fillStyle = '#101357';
+      ctx.fill();
+    }
+
+    function spinWheel() {
+      if (spinning) return;
+      spinning = true;
+      document.getElementById('wheelResult').textContent = '';
+
+      const extraSpins = (5 + Math.floor(Math.random() * 5)) * 2 * Math.PI;
+      const randomStop = Math.random() * 2 * Math.PI;
+      const totalRotation = extraSpins + randomStop;
+      const duration = 4000;
+      const startTime = performance.now();
+      const startAngle = wheelAngle;
+
+      function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+      function animate(now) {
+        const elapsed = now - startTime;
+        const t = Math.min(elapsed / duration, 1);
+        wheelAngle = startAngle + totalRotation * easeOut(t);
+        drawWheel(wheelAngle);
+
+        if (t < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          spinning = false;
+          wheelAngle = wheelAngle % (2 * Math.PI);
+
+          // Figure out which slice is at the top (pointer is at top = -π/2)
+          const n = overlapItems.length;
+          const sliceAngle = (2 * Math.PI) / n;
+          const pointerAngle = (Math.PI * 1.5); // top = 270°
+          const normalised = ((pointerAngle - wheelAngle) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
+          const index = Math.floor(normalised / sliceAngle) % n;
+
+          document.getElementById('wheelResult').textContent = `🎉 ${overlapItems[index]}!`;
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    // ── Restart ──
     function restart() {
       current = 0;
       yeses = [];
-      document.getElementById('partnerInput').value = '';
-      document.getElementById('overlapResults').style.display = 'none';
-      document.getElementById('results').style.display = 'none';
-      document.getElementById('intro').style.display = 'block';
+      overlapItems = [];
+      wheelAngle = 0;
+      showScreen('introScreen');
     }
   </script>
 </body>
