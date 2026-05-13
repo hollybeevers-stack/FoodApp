@@ -34,7 +34,6 @@
       padding: 20px;
     }
 
-    /* ── SHARED ── */
     .screen {
       display: none;
       flex-direction: column;
@@ -83,7 +82,6 @@
       font-size: 0.9rem;
     }
 
-    /* ── BUTTONS ── */
     .btn {
       border: none;
       cursor: pointer;
@@ -129,9 +127,14 @@
       font-size: 1.3rem;
     }
 
-    /* ── GROUP SIZE ── */
-    #groupScreen p.subtitle { margin-bottom: 24px; }
+    .btn-thisorthat {
+      background: #5b3fd4;
+      color: #fff;
+      padding: 16px;
+      font-size: 1.3rem;
+    }
 
+    /* GROUP SIZE */
     .group-options {
       display: flex;
       gap: 12px;
@@ -158,7 +161,7 @@
       transform: scale(1.04);
     }
 
-    /* ── RATER ── */
+    /* RATER */
     .progress-bar-wrap {
       width: 100%;
       background: var(--card);
@@ -229,7 +232,7 @@
     .btn-no:hover,  .btn-yes:hover  { opacity: 0.9; transform: scale(1.02); }
     .btn-no:active, .btn-yes:active { transform: scale(0.97); }
 
-    /* ── RESULTS ── */
+    /* RESULTS */
     .results-list {
       background: var(--card);
       border-radius: 12px;
@@ -274,7 +277,7 @@
       min-height: 20px;
     }
 
-    /* ── COMPARE ── */
+    /* COMPARE */
     .partner-block {
       width: 100%;
       margin-bottom: 16px;
@@ -314,7 +317,7 @@
       margin: 20px 0;
     }
 
-    /* ── OVERLAP RESULTS ── */
+    /* OVERLAP RESULTS */
     .overlap-list li::before {
       content: '♥';
       color: var(--no);
@@ -328,7 +331,20 @@
       margin-bottom: 16px;
     }
 
-    /* ── WHEEL ── */
+    .decide-row {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .decide-row .btn {
+      flex: 1;
+      margin-bottom: 0;
+      font-size: 1.05rem;
+      padding: 14px 8px;
+    }
+
+    /* WHEEL */
     #wheelScreen { padding-bottom: 20px; }
 
     .wheel-wrap {
@@ -369,7 +385,150 @@
       text-align: center;
     }
 
-    /* ── FLASH ── */
+    /* THIS OR THAT */
+    #thisOrThatScreen { padding-bottom: 20px; }
+
+    .tot-round-info {
+      font-size: 0.85rem;
+      color: var(--muted);
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+
+    .tot-arena {
+      display: flex;
+      align-items: stretch;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .tot-option {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--card);
+      border: 3px solid var(--border);
+      transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+      position: relative;
+    }
+    .tot-option:hover {
+      border-color: var(--accent);
+      transform: scale(1.03);
+      box-shadow: 0 8px 32px rgba(251,175,8,0.25);
+      z-index: 2;
+    }
+    .tot-option:active { transform: scale(0.98); }
+
+    .tot-option img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      display: block;
+    }
+
+    .tot-option-label {
+      padding: 12px 8px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      color: var(--text);
+      text-align: center;
+      background: var(--card);
+    }
+
+    .tot-choose-label {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #101357;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      opacity: 0;
+      transition: opacity 0.15s;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .tot-option:hover .tot-choose-label { opacity: 1; }
+
+    .tot-vs-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      flex-shrink: 0;
+    }
+
+    .tot-vs {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 8vw, 3rem);
+      color: var(--border);
+      line-height: 1;
+    }
+
+    .tot-winner-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .tot-winner-img-wrap {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 5px solid var(--accent);
+      box-shadow: 0 0 40px rgba(251,175,8,0.4);
+      margin-bottom: 20px;
+      animation: popIn 0.5s ease;
+    }
+
+    .tot-winner-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .tot-winner-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+
+    .tot-winner-sub {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 28px;
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-30px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .tot-option.animate-left  { animation: slideInLeft  0.3s ease; }
+    .tot-option.animate-right { animation: slideInRight 0.3s ease; }
+
+    @keyframes popIn {
+      0%   { transform: scale(0.6); opacity: 0; }
+      70%  { transform: scale(1.06); }
+      100% { transform: scale(1);   opacity: 1; }
+    }
+
+    /* FLASH */
     @keyframes flashYes {
       0%   { background: var(--card); }
       40%  { background: #0d4a35; }
@@ -442,7 +601,12 @@
       <h2 class="section-title">You All Want...</h2>
       <ul class="results-list overlap-list" id="overlapList"></ul>
       <p class="overlap-count" id="overlapCount"></p>
-      <button class="btn btn-fate" id="fateBtn" onclick="goToWheel()" style="display:none">🎡 Let Fate Decide</button>
+      <button class="btn btn-accent" id="copyOverlapBtn" onclick="copyOverlapList()" style="display:none">Copy This List</button>
+      <div class="copied-msg" id="overlapCopiedMsg"></div>
+      <div class="decide-row" id="decideRow" style="display:none">
+        <button class="btn btn-fate" onclick="goToWheel()">🎡 Fate Decide</button>
+        <button class="btn btn-thisorthat" onclick="goToThisOrThat()">⚔️ This or That</button>
+      </div>
     </div>
     <button class="btn btn-ghost" onclick="restart()">Start Over</button>
   </div>
@@ -458,6 +622,43 @@
     <div id="wheelResult"></div>
     <button class="btn btn-accent" onclick="spinWheel()">Spin!</button>
     <button class="btn btn-ghost" onclick="goToCompare()">← Back</button>
+  </div>
+
+  <!-- THIS OR THAT -->
+  <div id="thisOrThatScreen" class="screen">
+    <h2 class="section-title">This or That?</h2>
+    <div class="tot-round-info" id="totRoundInfo"></div>
+
+    <div id="totMatchup" style="width:100%">
+      <div class="tot-arena">
+        <div class="tot-option" id="totLeft" onclick="totPick(0)">
+          <span class="tot-choose-label">Pick This</span>
+          <img id="totImgLeft" src="" alt="" />
+          <div class="tot-option-label" id="totLabelLeft"></div>
+        </div>
+        <div class="tot-vs-wrap">
+          <span class="tot-vs">VS</span>
+        </div>
+        <div class="tot-option" id="totRight" onclick="totPick(1)">
+          <span class="tot-choose-label">Pick This</span>
+          <img id="totImgRight" src="" alt="" />
+          <div class="tot-option-label" id="totLabelRight"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="totWinner" class="tot-winner-screen" style="display:none">
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:16px;">🏆 The group's favourite is...</p>
+      <div class="tot-winner-img-wrap">
+        <img id="totWinnerImg" src="" alt="" />
+      </div>
+      <div class="tot-winner-label" id="totWinnerLabel"></div>
+      <p class="tot-winner-sub">Everyone can agree on something after all.</p>
+      <button class="btn btn-accent" onclick="goToCompare()">← Back to Results</button>
+      <button class="btn btn-ghost" onclick="restart()">Start Over</button>
+    </div>
+
+    <button class="btn btn-ghost" id="totBackBtn" onclick="goToCompare()" style="margin-top:8px">← Back</button>
   </div>
 
   <script>
@@ -544,6 +745,10 @@
       { file: "80 - GB.png",                  label: "GB" },
     ];
 
+    // Label to food object lookup
+    const foodMap = {};
+    foods.forEach(f => { foodMap[f.label.toLowerCase()] = f; });
+
     // ── State ──
     let groupSize = 2;
     let current = 0;
@@ -553,6 +758,12 @@
     // ── Wheel state ──
     let wheelAngle = 0;
     let spinning = false;
+
+    // ── This or That state ──
+    let totPool = [];
+    let totChampion = null;
+    let totChallengerIdx = 0;
+    let totPicking = false;
 
     // ── Navigation ──
     function showScreen(id) {
@@ -628,8 +839,6 @@
 
     // ── Compare ──
     function goToCompare() {
-      // Build paste boxes — groupSize boxes labelled Person 1, 2...
-      // Person 1 is pre-filled with this user's own list
       const container = document.getElementById('partnerInputs');
       container.innerHTML = '';
 
@@ -650,7 +859,6 @@
         container.appendChild(block);
       }
 
-      // Reset overlap area
       document.getElementById('overlapResults').style.display = 'none';
       document.getElementById('overlapDivider').style.display = 'none';
 
@@ -666,25 +874,23 @@
     }
 
     function compareAll() {
-      // Get all lists
       const lists = [];
       for (let i = 1; i <= groupSize; i++) {
         const ta = document.getElementById(`person${i}`);
         lists.push(parseList(ta ? ta.value : ''));
       }
 
-      // Find items that appear in ALL lists
       const myList = lists[0];
-      overlapItems = myList.filter(item =>
+      const overlapRaw = myList.filter(item =>
         lists.every(list => list.includes(item))
       );
 
-      // Map back to original capitalised labels
       const labelMap = {};
       foods.forEach(f => { labelMap[f.label.toLowerCase()] = f.label; });
-      const overlapLabels = overlapItems.map(item => labelMap[item] || item);
+      const overlapLabels = overlapRaw.map(item => labelMap[item] || item);
 
-      // Render
+      overlapItems = overlapLabels;
+
       const overlapList = document.getElementById('overlapList');
       overlapList.innerHTML = '';
       document.getElementById('overlapDivider').style.display = 'block';
@@ -693,7 +899,9 @@
       if (overlapLabels.length === 0) {
         overlapList.innerHTML = '<li class="empty-state">No overlap found — keep negotiating!</li>';
         document.getElementById('overlapCount').textContent = '';
-        document.getElementById('fateBtn').style.display = 'none';
+        document.getElementById('copyOverlapBtn').style.display = 'none';
+        document.getElementById('overlapCopiedMsg').textContent = '';
+        document.getElementById('decideRow').style.display = 'none';
       } else {
         overlapLabels.forEach(name => {
           const li = document.createElement('li');
@@ -702,13 +910,22 @@
         });
         document.getElementById('overlapCount').textContent =
           `${overlapLabels.length} food${overlapLabels.length !== 1 ? 's' : ''} everyone agreed on`;
-        document.getElementById('fateBtn').style.display = 'block';
-
-        // Store labels for wheel
-        overlapItems = overlapLabels;
+        document.getElementById('copyOverlapBtn').style.display = 'block';
+        document.getElementById('overlapCopiedMsg').textContent = '';
+        document.getElementById('decideRow').style.display =
+          overlapLabels.length >= 2 ? 'flex' : 'none';
       }
 
       document.getElementById('overlapResults').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyOverlapList() {
+      const text = overlapItems.length > 0 ? overlapItems.join('\n') : '(no overlap)';
+      navigator.clipboard.writeText(text).then(() => {
+        const msg = document.getElementById('overlapCopiedMsg');
+        msg.textContent = 'Copied to clipboard!';
+        setTimeout(() => msg.textContent = '', 2500);
+      });
     }
 
     // ── Wheel ──
@@ -738,7 +955,6 @@
         const start = angle + i * sliceAngle;
         const end = start + sliceAngle;
 
-        // Slice
         ctx.beginPath();
         ctx.moveTo(cx, cy);
         ctx.arc(cx, cy, r, start, end);
@@ -749,22 +965,18 @@
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        // Label
         ctx.save();
         ctx.translate(cx, cy);
         ctx.rotate(start + sliceAngle / 2);
         ctx.textAlign = 'right';
         ctx.fillStyle = '#101357';
         ctx.font = `bold ${n > 6 ? 10 : 12}px DM Sans`;
-
-        // Truncate long labels
         let label = item;
         if (label.length > 14) label = label.substring(0, 13) + '…';
         ctx.fillText(label, r - 10, 4);
         ctx.restore();
       });
 
-      // Centre circle
       ctx.beginPath();
       ctx.arc(cx, cy, 18, 0, 2 * Math.PI);
       ctx.fillStyle = '#101357';
@@ -796,19 +1008,89 @@
         } else {
           spinning = false;
           wheelAngle = wheelAngle % (2 * Math.PI);
-
-          // Figure out which slice is at the top (pointer is at top = -π/2)
           const n = overlapItems.length;
           const sliceAngle = (2 * Math.PI) / n;
-          const pointerAngle = (Math.PI * 1.5); // top = 270°
+          const pointerAngle = Math.PI * 1.5;
           const normalised = ((pointerAngle - wheelAngle) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
           const index = Math.floor(normalised / sliceAngle) % n;
-
           document.getElementById('wheelResult').textContent = `🎉 ${overlapItems[index]}!`;
         }
       }
 
       requestAnimationFrame(animate);
+    }
+
+    // ── This or That ──
+    function goToThisOrThat() {
+      // Build and shuffle pool from overlap items
+      totPool = overlapItems.map(label => foodMap[label.toLowerCase()] || { file: '', label });
+      for (let i = totPool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [totPool[i], totPool[j]] = [totPool[j], totPool[i]];
+      }
+
+      // First item is champion, rest are challengers
+      totChampion = totPool[0];
+      totChallengerIdx = 1;
+      totPicking = false;
+
+      document.getElementById('totMatchup').style.display = 'block';
+      document.getElementById('totWinner').style.display = 'none';
+      document.getElementById('totBackBtn').style.display = 'block';
+
+      renderTotMatchup();
+      showScreen('thisOrThatScreen');
+    }
+
+    function renderTotMatchup() {
+      const challenger = totPool[totChallengerIdx];
+      const remaining = totPool.length - totChallengerIdx + 1;
+
+      document.getElementById('totRoundInfo').textContent =
+        `${remaining} left — pick your favourite`;
+
+      const lEl = document.getElementById('totLeft');
+      const rEl = document.getElementById('totRight');
+      lEl.classList.remove('animate-left', 'animate-right');
+      rEl.classList.remove('animate-left', 'animate-right');
+      void lEl.offsetWidth;
+      lEl.classList.add('animate-left');
+      rEl.classList.add('animate-right');
+
+      document.getElementById('totImgLeft').src = totChampion.file;
+      document.getElementById('totImgLeft').alt = totChampion.label;
+      document.getElementById('totLabelLeft').textContent = totChampion.label;
+
+      document.getElementById('totImgRight').src = challenger.file;
+      document.getElementById('totImgRight').alt = challenger.label;
+      document.getElementById('totLabelRight').textContent = challenger.label;
+    }
+
+    function totPick(side) {
+      if (totPicking) return;
+      totPicking = true;
+
+      // side 0 = left (champion stays), side 1 = right (challenger becomes new champion)
+      if (side === 1) totChampion = totPool[totChallengerIdx];
+
+      totChallengerIdx++;
+
+      if (totChallengerIdx >= totPool.length) {
+        showTotWinner(totChampion);
+        return;
+      }
+
+      totPicking = false;
+      renderTotMatchup();
+    }
+
+    function showTotWinner(food) {
+      document.getElementById('totMatchup').style.display = 'none';
+      document.getElementById('totBackBtn').style.display = 'none';
+      document.getElementById('totWinnerImg').src = food.file;
+      document.getElementById('totWinnerImg').alt = food.label;
+      document.getElementById('totWinnerLabel').textContent = food.label;
+      document.getElementById('totWinner').style.display = 'flex';
     }
 
     // ── Restart ──
@@ -817,6 +1099,8 @@
       yeses = [];
       overlapItems = [];
       wheelAngle = 0;
+      totChampion = null;
+      totPool = [];
       showScreen('introScreen');
     }
   </script>
